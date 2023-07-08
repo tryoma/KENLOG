@@ -18,16 +18,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const TeacherHome: NextPage<any> = (props) => {
+const StudentHome: NextPage<any> = (props) => {
   const { name, email, image, birthday } = props;
 
   return (
     <>
       <Layout>
-        <h1>先生のホーム</h1>
+        <h1>生徒のホーム</h1>
       </Layout>
     </>
   );
 };
 
-export default TeacherHome;
+export default StudentHome;

@@ -1,9 +1,12 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
-import FacebookProvider from "next-auth/providers/facebook"
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 // import GithubProvider from "next-auth/providers/github"
 // import TwitterProvider from "next-auth/providers/twitter"
 // import Auth0Provider from "next-auth/providers/auth0"
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -35,27 +38,27 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token }) {
-      token.userRole = "admin"
-      return token
+      token.userRole = 'admin';
+      return token;
     },
-    // async session(session, token) {
-    //   const userExists = await prisma.user.findUnique({
-    //     where: { email: session.user.email }
-    //   })
+    async session(params) {
+      const { session } = params;
+      const userExists = await prisma.user.findUnique({
+        where: { email: session?.user?.email || '' },
+      });
 
-    //   if (!userExists) {
-    //     await prisma.user.create({
-    //       data: {
-    //         name: session.user.name,
-    //         email: session.user.email,
-    //         image: session.user.image
-    //       }
-    //     })
-    //   }
+      if (!userExists) {
+        await prisma.user.create({
+          data: {
+            email: session?.user?.email || '',
+            name: session?.user?.name || '',
+          },
+        });
+      }
 
-    //   return session
-    // },
+      return session;
+    },
   },
-}
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);
