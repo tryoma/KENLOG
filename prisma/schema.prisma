@@ -11,7 +11,46 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  defaultName String    @default("No Name")
+  signUpDate  DateTime  @default(now())
+  teacherFlag Boolean   @default(false)
+  records     Record[]
+  orders      Order[]
+  comments    Comment[]
+}
+
+model Record {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  title       String
+  postDate    DateTime  @default(now())
+  description String?
+  place       String?
+  youtubeURL  String
+  user        User      @relation(fields: [userId], references: [id])
+  orders      Order[]
+  comments    Comment[]
+}
+
+model Order {
+  id            Int     @id @default(autoincrement())
+  recordId      Int
+  teacherId     Int
+  status        String  @default("pending")
+  comment       String?
+  adviceComment String?
+  record        Record  @relation(fields: [recordId], references: [id])
+  teacher       User    @relation(fields: [teacherId], references: [id])
+}
+
+model Comment {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  recordId Int
+  status   String  @default("pending")
+  comment  String?
+  user     User    @relation(fields: [userId], references: [id])
+  record   Record  @relation(fields: [recordId], references: [id])
 }

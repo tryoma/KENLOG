@@ -51,7 +51,7 @@ export const authOptions: NextAuthOptions = {
         await prisma.user.create({
           data: {
             email: session?.user?.email || '',
-            name: session?.user?.name || '',
+            defaultName: session?.user?.name || '',
           },
         });
       }
