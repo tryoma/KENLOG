@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { getUserRecords } from '../../lib/records';
 import { Record } from '@prisma/client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   records: Record[];
@@ -37,6 +38,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const StudentHome: NextPage<Props> = ({ records }) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
   const deleteRecord = async (id: number) => {
     try {
       setIsDeleting(true);
@@ -46,6 +48,7 @@ const StudentHome: NextPage<Props> = ({ records }) => {
 
       if (response.ok) {
         console.log('Record deleted');
+        router.refresh();
       } else {
         console.error('Failed to delete record:', response.statusText);
       }

@@ -20,6 +20,8 @@
   ],
   "dependencies": {
     "@prisma/client": "^4.16.2",
+    "classnames": "^2.3.2",
+    "framer-motion": "^10.12.18",
     "next": "latest",
     "next-auth": "latest",
     "react": "^18.2.0",
