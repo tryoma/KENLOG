@@ -5,6 +5,7 @@ CREATE TABLE "User" (
     "defaultName" TEXT NOT NULL DEFAULT 'No Name',
     "signUpDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "teacherFlag" BOOLEAN NOT NULL DEFAULT false,
+    "isAdmin" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

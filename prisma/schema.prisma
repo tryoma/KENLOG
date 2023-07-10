@@ -16,6 +16,7 @@ model User {
   defaultName String    @default("No Name")
   signUpDate  DateTime  @default(now())
   teacherFlag Boolean   @default(false)
+  isAdmin     Boolean   @default(false)
   records     Record[]
   orders      Order[]
   comments    Comment[]
