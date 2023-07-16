@@ -19,17 +19,24 @@
     "Lluis Agusti <hi@llu.lu>"
   ],
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.4",
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@prisma/client": "^4.16.2",
     "classnames": "^2.3.2",
-    "framer-motion": "^10.12.18",
+    "framer-motion": "^10.12.21",
     "next": "latest",
     "next-auth": "latest",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
+    "react-youtube": "^10.1.0"
   },
   "devDependencies": {
     "@types/node": "^18.16.19",
     "@types/react": "^18.2.0",
+    "@types/react-modal": "^3.16.0",
     "prisma": "^4.16.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"

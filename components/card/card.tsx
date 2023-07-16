@@ -3,12 +3,16 @@ import Image from 'next/image';
 import cls from 'classnames';
 import { motion, MotionProps } from 'framer-motion';
 import styles from './card.module.css';
+import { FrontendRecord } from '../../types/frontendedRecord';
+
 
 interface CardProps {
+  id: number;
   imgUrl?: string;
   size?: 'large' | 'medium' | 'small';
-  id: number;
   shouldScale?: boolean;
+  record: FrontendRecord;
+  onSelectVideo: (id: number) => void;
 }
 
 export default function Card(props: CardProps) {
@@ -17,6 +21,8 @@ export default function Card(props: CardProps) {
     size = 'medium',
     id,
     shouldScale = true,
+    record,
+    onSelectVideo,
   } = props;
 
   const [imgSrc, setImgSrc] = useState(imgUrl);
@@ -43,6 +49,7 @@ export default function Card(props: CardProps) {
       <motion.div
         className={cls(styles.imgMotionWrapper, classMap[size])}
         {...shouldHover}
+        onClick={() => onSelectVideo(record.id)}
       >
         <Image
           src={imgSrc}

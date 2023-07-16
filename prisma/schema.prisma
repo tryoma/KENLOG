@@ -27,8 +27,8 @@ model Record {
   userId      Int
   title       String
   postDate    DateTime  @default(now())
-  description String?
-  place       String?
+  description String    @default("")
+  place       String    @default("")
   youtubeURL  String
   user        User      @relation(fields: [userId], references: [id])
   orders      Order[]
@@ -36,14 +36,14 @@ model Record {
 }
 
 model Order {
-  id            Int     @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   recordId      Int
   teacherId     Int
-  status        String  @default("pending")
-  comment       String?
-  adviceComment String?
-  record        Record  @relation(fields: [recordId], references: [id])
-  teacher       User    @relation(fields: [teacherId], references: [id])
+  status        String @default("pending")
+  comment       String @default("")
+  adviceComment String @default("")
+  record        Record @relation(fields: [recordId], references: [id])
+  teacher       User   @relation(fields: [teacherId], references: [id])
 }
 
 model Comment {

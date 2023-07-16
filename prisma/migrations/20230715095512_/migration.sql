@@ -16,8 +16,8 @@ CREATE TABLE "Record" (
     "userId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "postDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "description" TEXT,
-    "place" TEXT,
+    "description" TEXT NOT NULL DEFAULT '',
+    "place" TEXT NOT NULL DEFAULT '',
     "youtubeURL" TEXT NOT NULL,
 
     CONSTRAINT "Record_pkey" PRIMARY KEY ("id")
@@ -29,8 +29,8 @@ CREATE TABLE "Order" (
     "recordId" INTEGER NOT NULL,
     "teacherId" INTEGER NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'pending',
-    "comment" TEXT,
-    "adviceComment" TEXT,
+    "comment" TEXT NOT NULL DEFAULT '',
+    "adviceComment" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
