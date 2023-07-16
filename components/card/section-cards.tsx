@@ -4,15 +4,6 @@ import clsx from 'classnames';
 import styles from './section-cards.module.css';
 import { FrontendRecord } from '../../types/frontendedRecord';
 
-interface Record {
-  id: number;
-  title: string;
-  postDate: Date;
-  description: string;
-  place: string;
-  youtubeURL: string;
-}
-
 interface SectionCardsProps {
   title: string;
   videos: FrontendRecord[];
@@ -32,7 +23,7 @@ export default function SectionCards(props: SectionCardsProps) {
     onSelectVideo,
   } = props;
 
-  console.log({ videos });
+  // console.log({ videos });
 
   return (
     <section className={styles.container}>

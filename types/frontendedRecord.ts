@@ -1,3 +1,5 @@
+import { Comment } from './comment';
+
 export interface FrontendRecord {
   id: number;
   userId: number;
@@ -6,4 +8,5 @@ export interface FrontendRecord {
   description: string;
   place: string;
   youtubeURL: string;
+  comments: Comment[] | [];
 }

@@ -5,7 +5,7 @@ import styles from './styles/Home.module.css';
 import SectionCards from '../components/card/section-cards';
 import VideoModal from '../components/modal/videoModal';
 import { useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { prisma } from '../lib/prisma';
 import { FrontendRecord } from '../types/frontendedRecord';
 
@@ -14,8 +14,11 @@ interface Props {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const prismaRecords: PrismaRecord[] = await prisma.record.findMany({
+  const prismaRecords = await prisma.record.findMany({
     take: 20,
+    include: {
+      comments: true,
+    },
   });
 
   const frontendRecords: FrontendRecord[] = prismaRecords.map(
@@ -27,6 +30,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
       description: prismaRecord.description,
       place: prismaRecord.place,
       youtubeURL: prismaRecord.youtubeURL,
+      comments: prismaRecord.comments.map((comment) => ({
+        // Add this line
+        id: comment.id,
+        userId: comment.userId,
+        recordId: comment.recordId,
+        status: comment.status,
+        comment: comment.comment,
+      })),
     }),
   );
 

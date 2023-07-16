@@ -1,0 +1,43 @@
+import { PrismaClient } from '@prisma/client';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
+import { prisma } from '../../../lib/prisma';
+
+export default async function createComment(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email || '',
+    },
+  });
+
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  const { recordId, comment } = req.body;
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        userId: user.id,
+        recordId,
+        comment,
+        status: 'pending',
+      },
+    });
+
+    res.json(newComment);
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to create comment' });
+  }
+}
