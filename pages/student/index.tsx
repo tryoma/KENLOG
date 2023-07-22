@@ -3,14 +3,17 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 import Layout from '../../components/layout';
 import Link from 'next/link';
-import { getUserRecords } from '../../lib/records';
+import { getOthersRecords, getUserRecords } from '../../lib/records';
 import { Record } from '@prisma/client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
+import { FrontendRecord } from '../../types/frontendRecord';
+import { RecordCard } from '../../components/recordCard/recordCard';
 
 interface Props {
-  records: Record[];
+  userRecords: FrontendRecord[];
+  otherRecords: FrontendRecord[];
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
@@ -28,16 +31,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     };
   }
 
-  const records: Record[] = await getUserRecords(userEmail);
+  const records = await getUserRecords(userEmail);
+  const otherRecords = await getOthersRecords(userEmail);
 
   return {
     props: {
-      records: JSON.parse(JSON.stringify(records)),
+      userRecords: records,
+      otherRecords,
     },
   };
 };
 
-const StudentHome: NextPage<Props> = ({ records }) => {
+const StudentHome: NextPage<Props> = ({ userRecords, otherRecords }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
   const deleteRecord = async (id: number) => {
@@ -61,30 +66,35 @@ const StudentHome: NextPage<Props> = ({ records }) => {
   return (
     <>
       <Layout>
-        <Heading as="h1">Stories by Chakra Templates</Heading>
-        
+        <Box>
+          <Heading as="h2" size="md">
+            自分の投稿
+          </Heading>
+          {userRecords.length === 0 ? (
+            <p>No records found.</p>
+          ) : (
+            <ul>
+              {userRecords.map((record) => (
+                <RecordCard key={record.id} record={record} isMe={true} />
+              ))}
+            </ul>
+          )}
+        </Box>
+        <Box marginTop={'1rem'}>
+          <Heading as="h2" size="md">
+            最近の投稿
+          </Heading>
+          {otherRecords.length === 0 ? (
+            <p>No records found.</p>
+          ) : (
+            <ul>
+              {otherRecords.map((record) => (
+                <RecordCard key={record.id} record={record} />
+              ))}
+            </ul>
+          )}
+        </Box>
         <Link href="/student/new">新規投稿</Link>
-        {records.length === 0 ? (
-          <p>No records found.</p>
-        ) : (
-          <ul>
-            {records.map((record) => (
-              <li key={record.id}>
-                <h2>{record.title}</h2>
-                <p>{record.description}</p>
-                <p>{record.postDate.toLocaleString()}</p>
-                <p>{record?.place}</p>
-                <p>{record.youtubeURL}</p>
-                <button
-                  onClick={() => deleteRecord(record.id)}
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? 'Deleting...' : 'Delete'}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
       </Layout>
     </>
   );

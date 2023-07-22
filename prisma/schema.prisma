@@ -13,7 +13,8 @@ datasource db {
 model User {
   id                   Int                   @id @default(autoincrement())
   email                String                @unique
-  defaultName          String                @default("No Name")
+  name                 String                @default("No Name")
+  image                String                @default("")
   signUpDate           DateTime              @default(now())
   teacherFlag          Boolean               @default(false)
   isAdmin              Boolean               @default(false)

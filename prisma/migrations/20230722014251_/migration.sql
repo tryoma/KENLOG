@@ -2,7 +2,8 @@
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
-    "defaultName" TEXT NOT NULL DEFAULT 'No Name',
+    "name" TEXT NOT NULL DEFAULT 'No Name',
+    "image" TEXT NOT NULL DEFAULT '',
     "signUpDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "teacherFlag" BOOLEAN NOT NULL DEFAULT false,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false,

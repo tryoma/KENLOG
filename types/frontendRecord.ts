@@ -9,4 +9,6 @@ export interface FrontendRecord {
   place: string;
   youtubeURL: string;
   comments?: Comment[] | [];
+  userName?: string;
+  userImage?: string;
 }
