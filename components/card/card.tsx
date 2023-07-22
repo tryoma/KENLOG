@@ -3,8 +3,7 @@ import Image from 'next/image';
 import cls from 'classnames';
 import { motion, MotionProps } from 'framer-motion';
 import styles from './card.module.css';
-import { FrontendRecord } from '../../types/frontendedRecord';
-
+import { FrontendRecord } from '../../types/frontendRecord';
 
 interface CardProps {
   id: number;

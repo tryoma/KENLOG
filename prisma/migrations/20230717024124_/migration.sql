@@ -46,8 +46,29 @@ CREATE TABLE "Comment" (
     CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Information" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "postDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "description" TEXT NOT NULL,
+
+    CONSTRAINT "Information_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "UserReadInformation" (
+    "userId" INTEGER NOT NULL,
+    "informationId" INTEGER NOT NULL,
+
+    CONSTRAINT "UserReadInformation_pkey" PRIMARY KEY ("userId","informationId")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "UserReadInformation_userId_informationId_key" ON "UserReadInformation"("userId", "informationId");
 
 -- AddForeignKey
 ALTER TABLE "Record" ADD CONSTRAINT "Record_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -63,3 +84,9 @@ ALTER TABLE "Comment" ADD CONSTRAINT "Comment_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_recordId_fkey" FOREIGN KEY ("recordId") REFERENCES "Record"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UserReadInformation" ADD CONSTRAINT "UserReadInformation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UserReadInformation" ADD CONSTRAINT "UserReadInformation_informationId_fkey" FOREIGN KEY ("informationId") REFERENCES "Information"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

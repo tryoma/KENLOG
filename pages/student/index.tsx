@@ -7,6 +7,7 @@ import { getUserRecords } from '../../lib/records';
 import { Record } from '@prisma/client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Heading } from '@chakra-ui/react';
 
 interface Props {
   records: Record[];
@@ -60,7 +61,8 @@ const StudentHome: NextPage<Props> = ({ records }) => {
   return (
     <>
       <Layout>
-        <h1>生徒のホーム</h1>
+        <Heading as="h1">Stories by Chakra Templates</Heading>
+        
         <Link href="/student/new">新規投稿</Link>
         {records.length === 0 ? (
           <p>No records found.</p>

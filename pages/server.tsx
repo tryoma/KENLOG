@@ -18,7 +18,7 @@ export default function ServerSidePage() {
       </p>
       <p>
         Using <strong>getServerSession()</strong> in{' '}
-        <strong>getServerSideProps()</strong> is the recommended approach if you
+        <strong>getServerSideProps()</strong> is the recommend approach if you
         need to support Server Side Rendering with authentication.
       </p>
       <p>

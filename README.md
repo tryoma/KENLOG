@@ -1,4 +1,5 @@
 <!-- Prisma -->
+
 Commands
 
             init   Set up Prisma for your app
@@ -15,31 +16,34 @@ Flags
 
 Examples
 
-  Set up a new Prisma project
-  $ prisma init
+Set up a new Prisma project
+$ prisma init
 
-  Generate artifacts (e.g. Prisma Client)
-  $ prisma generate
+Generate artifacts (e.g. Prisma Client)
+$ prisma generate
 
-  Browse your data
-  $ prisma studio
+Browse your data
+$ prisma studio
 
-  Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
-  $ prisma migrate dev
-  
-  Pull the schema from an existing database, updating the Prisma schema
-  $ prisma db pull
+Create migrations from your Prisma schema, apply them to the database, generate artifacts (e.g. Prisma Client)
+$ prisma migrate dev
 
-  Push the Prisma schema state to the database
-  $ prisma db push
+Pull the schema from an existing database, updating the Prisma schema
+$ prisma db pull
 
-  Validate your Prisma schema
-  $ prisma validate
+Push the Prisma schema state to the database
+$ prisma db push
 
-  Format your Prisma schema
-  $ prisma format
+Validate your Prisma schema
+$ prisma validate
+
+Format your Prisma schema
+$ prisma format
 
 npx prisma generate
+
 <!-- フォルダを消して -->
+
 npx prisma migrate dev
 npx prisma studio
+npm run prisma:seed

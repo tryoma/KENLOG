@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Comment from '../comment';
-import { FrontendRecord } from '../../types/frontendedRecord';
+import { FrontendRecord } from '../../types/frontendRecord';
 import { Comment as CommentType } from '../../types/comment';
 
 interface VideoModalProps {

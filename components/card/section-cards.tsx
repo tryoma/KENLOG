@@ -2,7 +2,7 @@ import Card from './card';
 import Link from 'next/link';
 import clsx from 'classnames';
 import styles from './section-cards.module.css';
-import { FrontendRecord } from '../../types/frontendedRecord';
+import { FrontendRecord } from '../../types/frontendRecord';
 
 interface SectionCardsProps {
   title: string;

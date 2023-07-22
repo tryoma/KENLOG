@@ -8,5 +8,5 @@ export interface FrontendRecord {
   description: string;
   place: string;
   youtubeURL: string;
-  comments: Comment[] | [];
+  comments?: Comment[] | [];
 }

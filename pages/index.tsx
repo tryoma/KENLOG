@@ -7,7 +7,7 @@ import VideoModal from '../components/modal/videoModal';
 import { useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { prisma } from '../lib/prisma';
-import { FrontendRecord } from '../types/frontendedRecord';
+import { FrontendRecord } from '../types/frontendRecord';
 
 interface Props {
   records: FrontendRecord[];

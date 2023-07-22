@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  email       String    @unique
-  defaultName String    @default("No Name")
-  signUpDate  DateTime  @default(now())
-  teacherFlag Boolean   @default(false)
-  isAdmin     Boolean   @default(false)
-  records     Record[]
-  orders      Order[]
-  comments    Comment[]
+  id                   Int                   @id @default(autoincrement())
+  email                String                @unique
+  defaultName          String                @default("No Name")
+  signUpDate           DateTime              @default(now())
+  teacherFlag          Boolean               @default(false)
+  isAdmin              Boolean               @default(false)
+  records              Record[]
+  orders               Order[]
+  comments             Comment[]
+  UserReadInformations UserReadInformation[]
 }
 
 model Record {
@@ -54,4 +55,22 @@ model Comment {
   comment  String?
   user     User    @relation(fields: [userId], references: [id])
   record   Record  @relation(fields: [recordId], references: [id])
+}
+
+model Information {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  postDate            DateTime              @default(now())
+  description         String
+  UserReadInformation UserReadInformation[]
+}
+
+model UserReadInformation {
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  informationId Int
+  information   Information @relation(fields: [informationId], references: [id])
+
+  @@id([userId, informationId])
+  @@unique([userId, informationId])
 }

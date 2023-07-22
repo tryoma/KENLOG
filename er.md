@@ -24,3 +24,12 @@ Commentテーブル
   - recordId
   - status
   - comment
+
+informationテーブル
+  - title
+  - postDate
+  - description
+
+UserReadInformationテーブル
+  - userId
+  - informationId
