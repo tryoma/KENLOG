@@ -5,11 +5,13 @@ import Layout from '../../components/layout';
 import Link from 'next/link';
 import { getOthersRecords, getUserRecords } from '../../lib/records';
 import { Record } from '@prisma/client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter as useNavigate } from 'next/navigation';
 import { Box, Heading } from '@chakra-ui/react';
 import { FrontendRecord } from '../../types/frontendRecord';
 import { RecordCard } from '../../components/recordCard/recordCard';
+import { useAlert } from '../../contexts/AlertContext';
+import { useRouter } from 'next/router';
 
 interface Props {
   userRecords: FrontendRecord[];
@@ -25,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (!userEmail) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/',
         permanent: false,
       },
     };
@@ -44,7 +46,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
 const StudentHome: NextPage<Props> = ({ userRecords, otherRecords }) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
   const router = useRouter();
+  const { showAlert } = useAlert();
+  const { alert } = router.query;
+
+  useEffect(() => {
+    if (alert === 'notATeacher') {
+      showAlert('You are not a teacher!');
+    }
+  }, [alert]);
+
   const deleteRecord = async (id: number) => {
     try {
       setIsDeleting(true);
@@ -54,7 +66,7 @@ const StudentHome: NextPage<Props> = ({ userRecords, otherRecords }) => {
 
       if (response.ok) {
         console.log('Record deleted');
-        router.refresh();
+        navigate.refresh();
       } else {
         console.error('Failed to delete record:', response.statusText);
       }
